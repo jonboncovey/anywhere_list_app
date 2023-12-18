@@ -1,4 +1,3 @@
-import 'package:anywhere_list_app/pages/components/AnywhereAppBar.dart';
 import 'package:flutter/material.dart';
 
 import '../entities/CharacterEntity.dart';
@@ -17,7 +16,12 @@ class CharacterDetailsPage extends StatelessWidget{
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: SimpsonsAppBar(searchable: false,),
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: const Text('character name'),
+        leading: BackButton(
+        ),
+      ),
       body: Center(child: Column(children: [
         Text(character.name),
         Expanded(child: Image.network(character.imageFilepath)),

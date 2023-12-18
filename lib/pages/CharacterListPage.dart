@@ -1,28 +1,28 @@
-import 'package:anywhere_list_app/bloc/CharacterBloc.dart';
-import 'package:anywhere_list_app/bloc/CharacterEvent.dart';
+import 'package:anywhere_list_app/bloc/SimpsonsListBloc.dart';
 import 'package:anywhere_list_app/main.dart';
 import 'package:anywhere_list_app/pages/CharacterDetailsPage.dart';
-import 'package:anywhere_list_app/pages/components/AnywhereAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../bloc/CharacterState.dart';
 import '../entities/CharacterEntity.dart';
 
-class SimpsonsListPage extends StatelessWidget {
+class SimpsonsListPage extends HookWidget {
   const SimpsonsListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => serviceLocator<SimpsonsBloc>()..add(GetSimpsonsCharactersListEvent()),
-      child: const SimpsonsListPageContents(),
+      child: SimpsonsListPageContents(),
     );
   }
 }
 
-class SimpsonsListPageContents extends StatelessWidget {
-  const SimpsonsListPageContents({super.key});
+class SimpsonsListPageContents extends HookWidget {
+  SimpsonsListPageContents({super.key});
+
+  final TextEditingController searchController = useTextEditingController();
 
 
   @override
@@ -30,11 +30,25 @@ class SimpsonsListPageContents extends StatelessWidget {
 
     return BlocBuilder<SimpsonsBloc, SimpsonsListState>(
       builder: (context, state) {
-        // context.read<SimpsonsBloc>().add(GetSimpsonsCharactersListEvent());
 
       List<Character> characters = state.characters;
         return Scaffold(
-          appBar: SimpsonsAppBar(searchable: true,),
+          appBar: AppBar(
+            backgroundColor: Colors.blue,
+            title: TextField(
+              controller: searchController,
+              onChanged: (text) {
+                BlocProvider.of<SimpsonsBloc>(context).add(
+                  SearchSimpsonsCharactersListEvent(
+                    searchText: text,
+                    searchableCharacters: characters,
+                  ),
+                );
+              },
+              // style: const TextStyle(color: Colors.white),
+              cursorColor: Colors.white,
+            ),
+          ),
           body: ListView.builder(
               itemCount: state.characters.length,
               itemBuilder: (BuildContext context, int index) {

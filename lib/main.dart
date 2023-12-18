@@ -1,5 +1,4 @@
-import 'package:anywhere_list_app/bloc/CharacterBloc.dart';
-import 'package:anywhere_list_app/bloc/CharacterState.dart';
+import 'package:anywhere_list_app/bloc/SimpsonsListBloc.dart';
 import 'package:anywhere_list_app/pages/CharacterListPage.dart';
 import 'package:anywhere_list_app/repository/CharacterRepository.dart';
 import 'package:flutter/material.dart';

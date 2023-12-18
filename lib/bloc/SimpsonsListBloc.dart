@@ -1,9 +1,8 @@
-import 'package:anywhere_list_app/bloc/CharacterState.dart';
 import 'package:anywhere_list_app/entities/CharacterEntity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../repository/CharacterRepository.dart';
-import 'CharacterEvent.dart';
+
 
 
 class SimpsonsBloc extends Bloc<SimpsonsEvent, SimpsonsListState> {
@@ -41,6 +40,28 @@ class SimpsonsBloc extends Bloc<SimpsonsEvent, SimpsonsListState> {
     );
   }
 
+}
+
+class SimpsonsEvent {}
 
 
+class GetSimpsonsCharactersListEvent extends SimpsonsEvent {
+
+  GetSimpsonsCharactersListEvent();
+}
+
+class SearchSimpsonsCharactersListEvent extends SimpsonsEvent {
+  final String searchText;
+  final List<Character> searchableCharacters;
+
+  SearchSimpsonsCharactersListEvent({required this.searchText, required this.searchableCharacters});
+}
+
+class SimpsonsListState {
+  final List<Character> characters;
+
+  SimpsonsListState.empty(this.characters);
+  SimpsonsListState.loading(this.characters);
+  SimpsonsListState.loadedCharacters(this.characters);
+  SimpsonsListState.loadedDetails(this.characters);
 }

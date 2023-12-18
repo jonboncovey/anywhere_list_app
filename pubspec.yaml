@@ -25,6 +25,10 @@ dev_dependencies:
 
 
 flutter:
+  fonts:
+    - family: Simpsonsfont
+      fonts:
+        - asset: assets/Simpsonsfont.ttf
 
 
   uses-material-design: true

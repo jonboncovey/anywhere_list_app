@@ -1,6 +1,6 @@
+import 'package:anywhere_list_app/entities/CharacterEntity.dart';
 import 'package:flutter/material.dart';
 
-import '../entities/CharacterEntity.dart';
 
 class CharacterDetailsPage extends StatelessWidget{
   const CharacterDetailsPage({
@@ -17,15 +17,15 @@ class CharacterDetailsPage extends StatelessWidget{
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text('character name'),
-        leading: BackButton(
-        ),
+        backgroundColor: Colors.lightBlue[300],
+        title: Text(character.name, style: const TextStyle(fontFamily: "Simpsonsfont",
+            color: Colors.yellow
+        )),
+        leading: const BackButton(color: Colors.yellow),
       ),
       body: Center(child: Column(children: [
-        Text(character.name),
-        Expanded(child: Image.network(character.imageFilepath)),
-        Text(character.description)
+        Expanded(flex: 1, child: Image.network(character.imageFilepath)),
+        Expanded(flex: 2, child: Text(character.description))
       ])),
     );
   }

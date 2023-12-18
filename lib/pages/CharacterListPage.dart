@@ -1,6 +1,7 @@
 import 'package:anywhere_list_app/bloc/SimpsonsListBloc.dart';
 import 'package:anywhere_list_app/main.dart';
 import 'package:anywhere_list_app/pages/CharacterDetailsPage.dart';
+import 'package:anywhere_list_app/pages/components/SimpsonListTile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -33,10 +34,12 @@ class SimpsonsListPageContents extends HookWidget {
 
       List<Character> characters = state.characters;
         return Scaffold(
+          backgroundColor: Colors.yellow[100],
           appBar: AppBar(
-            backgroundColor: Colors.blue,
+            backgroundColor:Colors.lightBlue[300],
             title: TextField(
               controller: searchController,
+              
               onChanged: (text) {
                 BlocProvider.of<SimpsonsBloc>(context).add(
                   SearchSimpsonsCharactersListEvent(
@@ -45,27 +48,27 @@ class SimpsonsListPageContents extends HookWidget {
                   ),
                 );
               },
-              // style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               cursorColor: Colors.white,
+
             ),
           ),
           body: ListView.builder(
               itemCount: state.characters.length,
               itemBuilder: (BuildContext context, int index) {
-                // Typically I would break something like this out into it's own component, but that felt extra in this case
-                return ListTile(
-                  title: Text(characters[index].name,),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CharacterDetailsPage(character: characters[index],
-                            ),
-                        ),
-                    );
-                  },
-                );
-              }
+                return SimpsonListTile(
+                    character: characters[index],
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CharacterDetailsPage(character: characters[index],
+                              ),
+                          ),
+                      );
+                    },
+                  );
+              },
               )
         );
       }

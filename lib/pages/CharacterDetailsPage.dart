@@ -20,7 +20,7 @@ class CharacterDetailsPage extends StatelessWidget{
       appBar: SimpsonsAppBar(searchable: false,),
       body: Center(child: Column(children: [
         Text(character.name),
-        Image.network(character.imageFilepath),
+        Expanded(child: Image.network(character.imageFilepath)),
         Text(character.description)
       ])),
     );

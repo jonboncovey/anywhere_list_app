@@ -15,14 +15,15 @@ class SimpsonsRepository {
     var jsonResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
 
     jsonResponse["RelatedTopics"].forEach((rawCharacter) {
-      String rawCharacterText = rawCharacter["Text"];
-      List<String> splitText = rawCharacterText.split(" - ");
-      String characterName = splitText[0];
-      String characterDescription = splitText[1];
+      String characterName =  rawCharacter["Text"].split(" - ")[0];
+      String characterDescription =  rawCharacter["Text"].split(" - ")[1];
       String characterImageUri = rawCharacter["Icon"]["URL"];
 
       if (characterImageUri.isNotEmpty) {
         characterImageUri = "https://duckduckgo.com$characterImageUri";
+      }
+      else {
+        characterImageUri = "https://www.boredpanda.com/blog/wp-content/uploads/2022/04/sims-6256d7a3872a8__700.jpg";
       }
 
       characterList.add(

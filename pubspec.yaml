@@ -16,6 +16,7 @@ dependencies:
   http: ^1.1.0
   get_it: ^7.6.4
   flutter_hooks: ^0.20.3
+  mockito: ^5.4.2
 
 dev_dependencies:
   flutter_test:
@@ -25,10 +26,12 @@ dev_dependencies:
 
 
 flutter:
+  assets:
+    - assets/error_image.png
   fonts:
     - family: Simpsonsfont
       fonts:
-        - asset: assets/Simpsonsfont.ttf
+        - asset: assets/simpsons_font.ttf
 
 
   uses-material-design: true

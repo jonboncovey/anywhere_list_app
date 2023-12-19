@@ -9,29 +9,34 @@ class SimpsonsRepository {
   List<Character> characterList = [];
 
 
-  Future<List<Character>> getCharacterList() async {
-    http.Response response = await http.get(Uri.parse('https://api.duckduckgo.com/?q=simpsons+characters&format=json'));
+  Future<List<Character>?> getCharacterList() async {
 
-    var jsonResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    try {
+      http.Response response = await http.get(Uri.parse('https://api.duckduckgo.com/?q=simpsons+characters&format=json'));
+      var jsonResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+      jsonResponse["RelatedTopics"].forEach((rawCharacter) {
+        String characterName =  rawCharacter["Text"].split(" - ")[0];
+        String characterDescription =  rawCharacter["Text"].split(" - ")[1];
+        String characterImageUri = rawCharacter["Icon"]["URL"];
 
-    jsonResponse["RelatedTopics"].forEach((rawCharacter) {
-      String characterName =  rawCharacter["Text"].split(" - ")[0];
-      String characterDescription =  rawCharacter["Text"].split(" - ")[1];
-      String characterImageUri = rawCharacter["Icon"]["URL"];
+        characterImageUri.isNotEmpty
+            ? characterImageUri = "https://duckduckgo.com$characterImageUri"
+            : characterImageUri = "https://www.boredpanda.com/blog/wp-content/uploads/2022/04/sims-6256d7a3872a8__700.jpg";
 
-      if (characterImageUri.isNotEmpty) {
-        characterImageUri = "https://duckduckgo.com$characterImageUri";
-      }
-      else {
-        characterImageUri = "https://www.boredpanda.com/blog/wp-content/uploads/2022/04/sims-6256d7a3872a8__700.jpg";
-      }
-
-      characterList.add(
-          Character(
+        characterList.add(
+            Character(
               name: characterName,
               description: characterDescription,
-              imageFilepath: characterImageUri));
-    });
+              imageFilepath: characterImageUri,
+            )
+        );
+      });
+    }
+    catch (e) {
+      return null;
+    }
+
+
 
     return characterList;
   }
@@ -39,15 +44,10 @@ class SimpsonsRepository {
 
   Future<List<Character>> searchCharacterList(String searchText, List<Character> characters) async {
     List<Character> searchResults = [];
-    print("SearchText:  $searchText");
     if (searchText.isEmpty){
       return characterList;
     }
     for (var char in characterList) {
-      // I would typically refactor this to make lines ~50-60 more condensed,
-      // but I wanted to be able to display "name" results ahead of
-      // "description results and this was a straightforward and readable way
-      // to accomplish that
       if (char.name.toLowerCase().contains(searchText) ||
           char.name.toUpperCase().contains(searchText))
       {
@@ -66,7 +66,8 @@ class SimpsonsRepository {
       return searchResults;
     }
     else {
-      return characterList;}
+      return [];
+    }
 
   }
 

@@ -1,4 +1,4 @@
-import 'package:anywhere_list_app/bloc/SimpsonsListBloc.dart';
+import 'package:anywhere_list_app/bloc/SimpsonsBloc.dart';
 import 'package:anywhere_list_app/main.dart';
 import 'package:anywhere_list_app/utils.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class SimpsonsErrorWidget extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(36)),
             onPressed: () {
               serviceLocator<SimpsonsBloc>()
-                  .add(GetSimpsonsCharactersListEvent());
+                  .add(GetSimpsons());
             },
             child: const Icon(Icons.refresh, size: 48, color: Colors.yellow),
           ),

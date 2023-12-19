@@ -1,5 +1,5 @@
-class Character {
-  Character({
+class Simpson {
+  Simpson({
     required this.name,
     required this.description,
     required this.imageFilepath,});

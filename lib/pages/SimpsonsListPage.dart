@@ -1,7 +1,7 @@
-import 'package:anywhere_list_app/bloc/SimpsonsListBloc.dart';
+import 'package:anywhere_list_app/bloc/SimpsonsBloc.dart';
 import 'package:anywhere_list_app/entities/CharacterEntity.dart';
 import 'package:anywhere_list_app/main.dart';
-import 'package:anywhere_list_app/pages/CharacterDetailsPage.dart';
+import 'package:anywhere_list_app/pages/SimpsonDetailsPage.dart';
 import 'package:anywhere_list_app/pages/components/SimpsonListTile.dart';
 import 'package:anywhere_list_app/pages/components/SimpsonsErrorWidget.dart';
 import 'package:anywhere_list_app/pages/components/SimpsonsLoadingWidget.dart';
@@ -17,7 +17,7 @@ class SimpsonsListPage extends HookWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) =>
-          serviceLocator<SimpsonsBloc>()..add(GetSimpsonsCharactersListEvent()),
+          serviceLocator<SimpsonsBloc>()..add(GetSimpsons()),
       child: SimpsonsListPageContents(),
     );
   }
@@ -32,7 +32,7 @@ class SimpsonsListPageContents extends HookWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SimpsonsBloc, SimpsonsListState>(
         builder: (context, state) {
-      List<Character> characters = state.characters;
+      List<Simpson> characters = state.characters;
 
       return Scaffold(
         appBar: AppBar(
@@ -44,7 +44,7 @@ class SimpsonsListPageContents extends HookWidget {
             controller: searchController,
             onChanged: (text) {
               serviceLocator<SimpsonsBloc>().add(
-                SearchSimpsonsCharactersListEvent(
+                SearchSimpsons(
                   searchText: text,
                   searchableCharacters: characters,
                 ),
@@ -62,7 +62,7 @@ class SimpsonsListPageContents extends HookWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CharacterDetailsPage(
+                          builder: (context) => SimpsonDetailsPage(
                             character: characters[index],
                           ),
                         ),

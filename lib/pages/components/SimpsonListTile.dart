@@ -8,7 +8,7 @@ class SimpsonListTile extends StatelessWidget {
     required this.onPressed,
   });
 
-  final Character character;
+  final Simpson character;
   final void Function() onPressed;
 
   @override

@@ -2,12 +2,12 @@
 import 'package:anywhere_list_app/entities/CharacterEntity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../repository/CharacterRepository.dart';
+import '../repository/SimpsonsRepository.dart';
 
 enum SimpsonsStateStatus { error, loading, loaded }
 
 class SimpsonsListState {
-  final List<Character> characters;
+  final List<Simpson> characters;
   final SimpsonsStateStatus status;
 
   SimpsonsListState.error({
@@ -28,19 +28,19 @@ class SimpsonsBloc extends Bloc<SimpsonsEvent, SimpsonsListState> {
   SimpsonsBloc({required SimpsonsRepository simpsonsRepository})
       : _repository = simpsonsRepository,
         super(SimpsonsListState.loading()) {
-    on<GetSimpsonsCharactersListEvent>(
-        (event, emit) => onGetSimpsonsListEvent(event, emit));
-    on<SearchSimpsonsCharactersListEvent>(
-        (event, emit) => onSearchSimpsonsListEvent(event, emit));
+    on<GetSimpsons>(
+        (event, emit) => onGetSimpsons(event, emit));
+    on<SearchSimpsons>(
+        (event, emit) => onSearchSimpsons(event, emit));
   }
 
   final SimpsonsRepository _repository;
 
-  onGetSimpsonsListEvent(
-      GetSimpsonsCharactersListEvent event, Emitter emit) async {
+  onGetSimpsons(
+      GetSimpsons event, Emitter emit) async {
     emit(SimpsonsListState.loading());
 
-    List<Character>? simpsonsCharacters = await _repository.getCharacterList();
+    List<Simpson>? simpsonsCharacters = await _repository.getCharacterList();
 
     if (simpsonsCharacters == null) {
       emit(SimpsonsListState.error());
@@ -51,11 +51,11 @@ class SimpsonsBloc extends Bloc<SimpsonsEvent, SimpsonsListState> {
 
   }
 
-  onSearchSimpsonsListEvent(
-      SearchSimpsonsCharactersListEvent event, Emitter emit) async {
+  onSearchSimpsons(
+      SearchSimpsons event, Emitter emit) async {
     emit(SimpsonsListState.loading());
 
-    List<Character> searchResults = await _repository.searchCharacterList(
+    List<Simpson> searchResults = await _repository.searchCharacterList(
         event.searchText, event.searchableCharacters);
 
       emit(SimpsonsListState.loaded(characters: searchResults));
@@ -64,15 +64,14 @@ class SimpsonsBloc extends Bloc<SimpsonsEvent, SimpsonsListState> {
 }
 
 class SimpsonsEvent {}
-
-class GetSimpsonsCharactersListEvent extends SimpsonsEvent {
-  GetSimpsonsCharactersListEvent();
+class GetSimpsons extends SimpsonsEvent {
+  GetSimpsons();
 }
 
-class SearchSimpsonsCharactersListEvent extends SimpsonsEvent {
+class SearchSimpsons extends SimpsonsEvent {
   final String searchText;
-  final List<Character> searchableCharacters;
+  final List<Simpson> searchableCharacters;
 
-  SearchSimpsonsCharactersListEvent(
+  SearchSimpsons(
       {required this.searchText, required this.searchableCharacters});
 }

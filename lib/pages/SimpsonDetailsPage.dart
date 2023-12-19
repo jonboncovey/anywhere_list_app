@@ -2,13 +2,13 @@ import 'package:anywhere_list_app/entities/CharacterEntity.dart';
 import 'package:flutter/material.dart';
 
 
-class CharacterDetailsPage extends StatelessWidget{
-  const CharacterDetailsPage({
+class SimpsonDetailsPage extends StatelessWidget{
+  const SimpsonDetailsPage({
     super.key,
     required this.character
   });
 
-  final Character character;
+  final Simpson character;
 
 
 

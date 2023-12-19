@@ -1,6 +1,6 @@
-import 'package:anywhere_list_app/bloc/SimpsonsListBloc.dart';
-import 'package:anywhere_list_app/pages/CharacterListPage.dart';
-import 'package:anywhere_list_app/repository/CharacterRepository.dart';
+import 'package:anywhere_list_app/bloc/SimpsonsBloc.dart';
+import 'package:anywhere_list_app/pages/SimpsonsListPage.dart';
+import 'package:anywhere_list_app/repository/SimpsonsRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 

@@ -6,10 +6,10 @@ import 'package:http/http.dart' as http;
 
 class SimpsonsRepository {
 
-  List<Character> characterList = [];
+  List<Simpson> characterList = [];
 
 
-  Future<List<Character>?> getCharacterList() async {
+  Future<List<Simpson>?> getCharacterList() async {
 
     try {
       http.Response response = await http.get(Uri.parse('https://api.duckduckgo.com/?q=simpsons+characters&format=json'));
@@ -24,7 +24,7 @@ class SimpsonsRepository {
             : characterImageUri = "https://www.boredpanda.com/blog/wp-content/uploads/2022/04/sims-6256d7a3872a8__700.jpg";
 
         characterList.add(
-            Character(
+            Simpson(
               name: characterName,
               description: characterDescription,
               imageFilepath: characterImageUri,
@@ -42,8 +42,8 @@ class SimpsonsRepository {
   }
 
 
-  Future<List<Character>> searchCharacterList(String searchText, List<Character> characters) async {
-    List<Character> searchResults = [];
+  Future<List<Simpson>> searchCharacterList(String searchText, List<Simpson> characters) async {
+    List<Simpson> searchResults = [];
     if (searchText.isEmpty){
       return characterList;
     }

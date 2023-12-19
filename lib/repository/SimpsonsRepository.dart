@@ -1,16 +1,11 @@
 import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:anywhere_list_app/entities/CharacterEntity.dart';
 import 'package:http/http.dart' as http;
 
 class SimpsonsRepository {
-
   List<Simpson> characterList = [];
 
-
-  Future<List<Simpson>?> getCharacterList() async {
-
+  Future<List<Simpson>?> getSimpsons() async {
     try {
       http.Response response = await http.get(Uri.parse('https://api.duckduckgo.com/?q=simpsons+characters&format=json'));
       var jsonResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
@@ -42,7 +37,7 @@ class SimpsonsRepository {
   }
 
 
-  Future<List<Simpson>> searchCharacterList(String searchText, List<Simpson> characters) async {
+  Future<List<Simpson>> searchSimpsons(String searchText, List<Simpson> characters) async {
     List<Simpson> searchResults = [];
     if (searchText.isEmpty){
       return characterList;

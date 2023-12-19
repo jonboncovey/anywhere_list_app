@@ -40,7 +40,7 @@ class SimpsonsBloc extends Bloc<SimpsonsEvent, SimpsonsListState> {
       GetSimpsons event, Emitter emit) async {
     emit(SimpsonsListState.loading());
 
-    List<Simpson>? simpsonsCharacters = await _repository.getCharacterList();
+    List<Simpson>? simpsonsCharacters = await _repository.getSimpsons();
 
     if (simpsonsCharacters == null) {
       emit(SimpsonsListState.error());
@@ -55,7 +55,7 @@ class SimpsonsBloc extends Bloc<SimpsonsEvent, SimpsonsListState> {
       SearchSimpsons event, Emitter emit) async {
     emit(SimpsonsListState.loading());
 
-    List<Simpson> searchResults = await _repository.searchCharacterList(
+    List<Simpson> searchResults = await _repository.searchSimpsons(
         event.searchText, event.searchableCharacters);
 
       emit(SimpsonsListState.loaded(characters: searchResults));

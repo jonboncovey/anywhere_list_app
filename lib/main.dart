@@ -9,9 +9,9 @@ final serviceLocator = GetIt.instance;
 
 void main() {
   serviceLocator.registerLazySingleton(
-    () => SimpsonsBloc(simpsonsRepository: serviceLocator()),
+    () => SimpsonsBloc(simpsonsRepository: SimpsonsRepository()),
   );
-  serviceLocator.registerLazySingleton(() => SimpsonsRepository());
+  // serviceLocator.registerLazySingleton(() => SimpsonsRepository());
   runApp(const MyApp());
 }
 
